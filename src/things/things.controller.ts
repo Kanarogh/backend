@@ -1,14 +1,14 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { FluttersService } from './flutters.service';
-import { CreateFlutterDto } from './dto/create-flutter.dto';
-import { UpdateFlutterDto } from './dto/update-flutter.dto';
+import { FluttersService } from './things.service';
+import { Prisma } from '@prisma/client';
+
 
 @Controller('flutters')
 export class FluttersController {
   constructor(private readonly fluttersService: FluttersService) {}
 
   @Post()
-  create(@Body() createFlutterDto: CreateFlutterDto) {
+  create(@Body() createFlutterDto: Prisma.ThingCreateInput) {
     return this.fluttersService.create(createFlutterDto);
   }
 
@@ -23,7 +23,7 @@ export class FluttersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFlutterDto: UpdateFlutterDto) {
+  update(@Param('id') id: string, @Body() updateFlutterDto: Prisma.ThingUpdateInput) {
     return this.fluttersService.update(+id, updateFlutterDto);
   }
 
